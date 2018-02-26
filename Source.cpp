@@ -1,27 +1,28 @@
-#include <iostream>
-#include <string>
+
+#include<allegro5\allegro.h>
+#include<allegro5\allegro_primitives.h>
+#include<iostream>
+#include<ctime>
+
 using namespace std;
-bool base2;
-double base10;
-double num1;
-double num2;
-double num3;
-double num4;
-double num5;
 
-int main() {
+int main()
+{
+	ALLEGRO_DISPLAY *window = NULL;
+	
+	al_init();
+	al_init_primitives_addon();
+	window = al_create_display(800,800);
+	srand(time(NULL));
+	while (1) {
+		al_draw_filled_circle(rand()%800, rand()%800, rand() % 80, al_map_rgb(rand() % 255, rand() % 225, rand() % 255));
+		
+		//al_draw_filled_triangle(rand() % 800, rand() % 800, rand() % 80 al_map_rgb((rand() % 255, rand() % 225, rand() % 800, rand() % 800, rand() % 80, al_map_rgb(rand() % 255, rand() % 225, rand() % 255)) rand( % 255));
+		al_flip_display();
+		//al_rest(.08);
 
-	cout << "input  number 1 in binary form" << endl;
-	cin >> num1;
-	cout << "input  number 2 in binary form" << endl;
-	cin >> num2;
-	cout << "input  number 3 in binary form" << endl;
-	cin >> num3;
-	cout << "input  number 4 in binary form" << endl;
-	cin >> num4;
-	cout << "input  number 5 in binary form" << endl;
-	cin >> num5;
-	cout << num1 * 16 + num2 * 8 + num3 * 4 + num4 * 2 + num5 * 1;
-	cout << " " << endl;
-	system("pause");
+	}
+	al_destroy_display(window);
+
 }
+
