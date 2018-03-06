@@ -1,34 +1,99 @@
-#include <allegro5\allegro.h>
-#include <allegro5/allegro_primitives.h>
+#include<iostream>
+#include<Windows.h>
+#include <ctime>
+using namespace std;
+
+//class definition
+class pokemon
+{
+private:
+	int health;
+public:
+	void eat(char c);
+	void initPoke(int num);
+	void printInfo();
+
+};
+
+//function declaration
+char foodDrop(char location);
+
+
 
 int main() {
-	ALLEGRO_DISPLAY *Win = NULL;
+	
+	srand(time(NULL));
+	while (1) {
+		pokemon charizard;
+		charizard.initPoke(5);
+		charizard.printInfo();
+		//charizard.eat('b'); //testing without food dropper
+		charizard.eat(foodDrop('f')); //testing with food dropper
+		charizard.printInfo();
 
-	al_init();
-	al_init_primitives_addon();
 
-	Win = al_create_display(600, 600);
+		system("pause");
+	}
 
-	al_clear_to_color(al_map_rgb(255, 255, 255));
 
-	//al_draw_filled_rectangle(300, 200, 350, 20, al_map_rgb(60, 595, 500));
+}//end main
 
-	al_draw_filled_rectangle(500, 550, 400, 600, al_map_rgb(0, 0, 255));
-	al_draw_filled_rectangle(200, 400, 400, 600, al_map_rgb(255, 0, 0));
-	al_draw_filled_triangle(300, 250, 200, 400, 400, 400, al_map_rgb(0, 0, 0));
+//function declarations
+char foodDrop(char location) {
+		
+	int num = rand() % 100 + 1;
 
-	al_draw_filled_circle(500, 100, 75, al_map_rgb(255, 255, 0));
+	if (location == 'f') {
+		if (num <= 50) {
+			cout << "you got a berry!" << endl;
+			return 'b';
+		}
+		else {
+			cout << "you got a mushroom!" << endl;
+			return 'm';
 
-	al_draw_filled_circle(100, 100, 75, al_map_rgb(128, 128, 128));
-	al_draw_filled_circle(150, 100, 75, al_map_rgb(128, 128, 128));
-	al_draw_filled_circle(200, 100, 75, al_map_rgb(128, 128, 128));
+		}
+	}
+	else if (location == 'd') {
+		if (num <= 20) {
+			cout << "You got a berry!" << endl;
+			return 'b';
+		}
+		else if (num <= 40) {
+			cout << "You got a fruit!" << endl;
+			return 'f';
+		}
+		else if (num < 40) {
+			cout << "You found some cheese?" << endl;
+			return 'c';
+		}
+	}
 
-	al_flip_display();
 
-	al_rest(20);
+	else
+		cout << "invalid location" << endl;
 
-	al_destroy_display(Win);
 }
 
 
+void pokemon::initPoke(int num) {
+	health = num;
+}
+void pokemon::printInfo() {
+	cout << "your charizard's health is " << health << endl;
+}
 
+void pokemon::eat(char food) {
+
+	if (food == 'b')
+		health += 3;
+	else if (food == 'c')
+		health += 4;
+	else if (food == 'm')
+		health += 5;
+	else if (food == 'p')
+		health += 6;
+	else if (food == 'f')
+		health += 7;
+
+}
