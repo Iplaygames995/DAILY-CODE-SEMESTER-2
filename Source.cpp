@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	al_set_target_bitmap(bouncer);
 
 	//al_clear_to_color(al_map_rgb(255, 0, 255));
-	
+
 	al_set_target_bitmap(al_get_backbuffer(display));
 
 	event_queue = al_create_event_queue();
@@ -90,9 +90,16 @@ int main(int argc, char **argv)
 
 			bouncer_x = ev.mouse.x;
 			bouncer_y = ev.mouse.y;
-		}
+		} 
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-			al_draw_circle(bouncer_x, bouncer_y, rand() % 100, al_map_rgb(rand() % 255, rand() % 255, rand() % 255), rand() % 200);
+			if (ev.mouse.x < 320 && ev.mouse.y <240)
+			al_draw_filled_rectangle(0,0,320,240,al_map_rgb(rand()%255, rand() %255, rand ()%255));
+			else if (ev.mouse.x > 320 && ev.mouse.y <240)
+			al_draw_filled_rectangle(320,0,640,240, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+			else if (ev.mouse.x < 320 && ev.mouse.y >240)
+			al_draw_filled_rectangle(0,240, 320,480, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+			else if (ev.mouse.x >320 && ev.mouse.y > 240)
+			al_draw_filled_rectangle(320,240, 640,480, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue)) {
